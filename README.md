@@ -17,6 +17,7 @@
         calculate diff as Disha pointed out!
  */
 
+*account class fields*
 ```
 class Acount{
     
@@ -27,7 +28,10 @@ class Acount{
     private DateTime dateOf;
     
 }
+```
 
+**contents of**  *owes to* **and** *owes from* **lists**
+```
 {
     owesTo:
         [
