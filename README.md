@@ -1,5 +1,5 @@
 
-# Suport Bank
+# Support Bank
 
 ### Notes
  * We open the file
