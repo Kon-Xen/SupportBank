@@ -1,7 +1,7 @@
 
-#Suport Bank
+# Suport Bank
 
-## Notes
+### Notes
  * We open the file
  
  * use to create accounts ( loop )
@@ -15,7 +15,7 @@
 
         Mary | 12/09/2014 | pokemon training  | people list of what is owed to | people list of what is owed from
         calculate diff as Disha pointed out!
- */
+
 
 *account class fields*
 ```
