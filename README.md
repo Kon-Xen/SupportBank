@@ -1,6 +1,9 @@
 
-# todo:
+#Suport Bank
+
+## Notes
  * We open the file
+ 
  * use to create accounts ( loop )
 
  * put the accounts in a list  to be ready to query.
