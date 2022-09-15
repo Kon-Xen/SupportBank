@@ -24,7 +24,12 @@ List<string> getData(string path)
     while (!reader.EndOfStream)
     {
         var line = reader.ReadLine();
-        data.Add(line);
+
+        if (line != null)
+        {
+            data.Add(line);
+        }
+
     }
     return data;
 }
@@ -35,9 +40,9 @@ for (int i = 1; i < fileContents.Count; i++)
 {
     string[] row = fileContents[i].Split(',');
 
-    if (!accounts.ContainsKey( row[1] ) )
+    if (!accounts.ContainsKey(row[1]))
     {
-        accounts.Add( row[1], new Account( i, row[1] ) );
+        accounts.Add(row[1], new Account(i, row[1]));
     }
 }
 
@@ -45,3 +50,5 @@ foreach (var account in accounts)
 {
     Console.WriteLine(account);
 }
+
+Console.WriteLine(accounts["Ben B"]);
