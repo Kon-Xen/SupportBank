@@ -3,7 +3,7 @@ namespace Bank
     class Account
     {
         private int id;
-        private string name;
+        private string? name;
         private string Name{ get; set; }
 
         private Dictionary<string, Debt> owesTo = new Dictionary<string, Debt>();    

@@ -1,5 +1,4 @@
-﻿
-/* todo:
+﻿/* todo:
 *We open the file
  * use contents to create accounts ( loop )
 
@@ -30,27 +29,19 @@ List<string> getData(string path)
     return data;
 }
 
-// List<string> names = new List<string>();
-
 Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 
 for (int i = 1; i < fileContents.Count; i++)
 {
     string[] row = fileContents[i].Split(',');
 
-    if(!accounts.ContainsKey(row[1]) ){
-        accounts.Add(row[1], new Account( i, row[1] ) );
+    if (!accounts.ContainsKey( row[1] ) )
+    {
+        accounts.Add( row[1], new Account( i, row[1] ) );
     }
-    
 }
-
 
 foreach (var account in accounts)
 {
     Console.WriteLine(account);
 }
-
-// foreach (var row in fileContents)
-// {
-//     Console.WriteLine(row);
-// }
