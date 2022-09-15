@@ -30,32 +30,24 @@ List<string> getData(string path)
     return data;
 }
 
-List<string> names = new List<string>();
+// List<string> names = new List<string>();
+
+Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 
 for (int i = 1; i < fileContents.Count; i++)
 {
     string[] row = fileContents[i].Split(',');
-    if(!names.Contains(row[1])){
-        names.Add(row[1]);
-    }
-    if (!names.Contains(row[2]))
-    {
-        names.Add(row[2]);
-    }
-}
 
-Dictionary<int,Account> accounts = new Dictionary<int, Account>();
-
-foreach (var name in names)
-{
-    accounts.Add(name, $"{name + i}" = new Account();
+    if(!accounts.ContainsKey(row[1]) ){
+        accounts.Add(row[1], new Account( i, row[1] ) );
+    }
+    
 }
 
 
-
-foreach (var name in names)
+foreach (var account in accounts)
 {
-    Console.WriteLine(name);
+    Console.WriteLine(account);
 }
 
 // foreach (var row in fileContents)

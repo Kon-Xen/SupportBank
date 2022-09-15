@@ -8,7 +8,7 @@ namespace Bank
 
         private Dictionary<string, Debt> owesTo = new Dictionary<string, Debt>();    
 
-        Account( int id, string name ) {
+        public Account( int id, string name ) {
             this.id = id;
             this.Name = name;
         }
