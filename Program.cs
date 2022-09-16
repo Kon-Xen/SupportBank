@@ -34,21 +34,35 @@ List<string> getData(string path)
     return data;
 }
 
-Dictionary<string, Account> accounts = new Dictionary<string, Account>();
+// Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 
+// for (int i = 1; i < fileContents.Count; i++)
+// {
+//     string[] row = fileContents[i].Split(',');
+
+//     if (!accounts.ContainsKey(row[1]))
+//     {
+//         accounts.Add(row[1], new Account(i, row[1]));
+//     }
+// }
+
+List<Account> accounts = new List<Account>();
+List<string> names = new List<string>();
 for (int i = 1; i < fileContents.Count; i++)
 {
     string[] row = fileContents[i].Split(',');
 
-    if (!accounts.ContainsKey(row[1]))
+    if (!names.Contains(row[1]))
     {
-        accounts.Add(row[1], new Account(i, row[1]));
+        names.Add(row[1]);
+        dynamic instance = new Account(i, row[1]);
+        accounts.Add(instance);
     }
 }
 
 foreach (var account in accounts)
 {
-    Console.WriteLine(account);
+    Console.WriteLine(account.Id);
+    Console.WriteLine(account.Name);
+    Console.WriteLine(account.OwesTo);
 }
-
-Console.WriteLine(accounts["Ben B"]);

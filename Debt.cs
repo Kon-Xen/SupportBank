@@ -3,8 +3,8 @@ namespace Bank
     class Debt
     {
 
-        private int accountId;
-        private int owesTo;
+        private int accountId; 
+        private int owesTo; //other persons id
         private decimal amount;
         private DateTime date;
         private string narrative;

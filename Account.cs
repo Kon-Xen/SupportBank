@@ -3,10 +3,13 @@ namespace Bank
     class Account
     {
         private int id;
+        public int Id{ get; set; }
         private string? name;
-        private string Name{ get; set; }
+        public string Name{ get; set; }
 
-        private Dictionary<string, Debt> owesTo = new Dictionary<string, Debt>();    
+        private Dictionary<string, Debt> owesTo = new Dictionary<string, Debt>();
+        public Dictionary<string, Debt> OwesTo{
+            get; set; } = new Dictionary<string, Debt>();
 
         public Account( int id, string name ) {
             this.id = id;
