@@ -1,5 +1,6 @@
-﻿/* todo:
-*We open the file
+﻿/* 
+ * todo:
+ * We open the file
  * use contents to create accounts ( loop )
 
  * put the accounts in a list to be ready to query.
@@ -26,6 +27,8 @@ List<string> getData(string path)
         var line = reader.ReadLine();
 
         if (line != null)
+
+
         {
             data.Add(line);
         }
@@ -55,7 +58,12 @@ for (int i = 1; i < fileContents.Count; i++)
     if (!names.Contains(row[1]))
     {
         names.Add(row[1]);
-        dynamic instance = new Account(i, row[1]);
+        
+        dynamic instance = new Account(
+            i, 
+            row[1],
+            new Debt( i, 0, 0.6M, DateTime.Now, "test")
+            );
         accounts.Add(instance);
     }
 }
@@ -64,5 +72,5 @@ foreach (var account in accounts)
 {
     Console.WriteLine(account.Id);
     Console.WriteLine(account.Name);
-    Console.WriteLine(account.OwesTo);
+    Console.WriteLine(account.OwesTo[0].Narrative);
 }

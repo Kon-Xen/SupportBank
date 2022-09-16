@@ -2,20 +2,24 @@ namespace Bank
 {
     class Debt
     {
-
         private int accountId; 
+        public int AccountId {get;set;} 
         private int owesTo; //other persons id
+        public int OwesTo {get;set;}
         private decimal amount;
+        public decimal Amount {get;set;} 
         private DateTime date;
-        private string narrative;
+        public DateTime Date {get;set;}
+        private string? narrative;
+        public string? Narrative{get; set;}
 
-        Debt(int id, int owesTo, decimal amount, DateTime date, string narrative)
+        public Debt(int id, int owesTo, decimal amount, DateTime date, string narrative)
         {
-            this.accountId = id;
-            this.owesTo = owesTo;
-            this.amount = amount;
-            this.date = date;
-            this.narrative = narrative;
+            this.AccountId = id;
+            this.OwesTo = owesTo;
+            this.Amount = amount;
+            this.Date = date;
+            this.Narrative = narrative;
         }
     }
 

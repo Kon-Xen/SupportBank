@@ -7,13 +7,17 @@ namespace Bank
         private string? name;
         public string Name{ get; set; }
 
-        private Dictionary<string, Debt> owesTo = new Dictionary<string, Debt>();
-        public Dictionary<string, Debt> OwesTo{
-            get; set; } = new Dictionary<string, Debt>();
+        private List<Debt> owesTo = new List<Debt>();
+        public List<Debt> OwesTo
+        {
+            get; 
+            set;
+        } = new List<Debt>(); //list of debt objects
 
-        public Account( int id, string name ) {
-            this.id = id;
+        public Account( int id, string name, Debt debt ) {
+            this.Id = id;
             this.Name = name;
+            this.OwesTo.Add(debt);
         }
     }
 }
