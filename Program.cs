@@ -56,8 +56,7 @@ for (int i = 1; i < fileContents.Count; i++)
        );
         accounts.Add(row[1], instance);
 
-    }
-    if (accounts.ContainsKey(row[1]))
+    } else if (accounts.ContainsKey(row[1]))
     {
         dynamic debt = new Debt(
                i,
@@ -75,11 +74,15 @@ for (int i = 1; i < fileContents.Count; i++)
 foreach (var account in accounts)
 {
     Console.WriteLine("account : " + account.Value.Id);
-
+    Console.WriteLine( account.Value.Name );
+    decimal total = 0;
     foreach (var debt in account.Value.OwesTo)
     {
-        Console.WriteLine(account.Value.Name + " owes to: " + debt.OwesTo + " " + debt.Amount + "$ for " + debt.Narrative + " on the: " + debt.Date);
+        Console.WriteLine(" owes to: " + debt.OwesTo + " " + debt.Amount + "$ for " + debt.Narrative + " on the: " + debt.Date);
+        total = total + debt.Amount;        
     }
-     Console.WriteLine("----------");
+
+    Console.WriteLine(" Total debt = " + total);
+    Console.WriteLine("----------");
 
 }
