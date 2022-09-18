@@ -4,8 +4,8 @@ namespace Bank
     {
         private int accountId; 
         public int AccountId {get;set;} 
-        private int owesTo; //other persons id
-        public int OwesTo {get;set;}
+        private string owesTo; //other persons id
+        public string OwesTo {get;set;}
         private decimal amount;
         public decimal Amount {get;set;} 
         private DateTime date;
@@ -13,7 +13,7 @@ namespace Bank
         private string? narrative;
         public string? Narrative{get; set;}
 
-        public Debt(int id, int owesTo, decimal amount, DateTime date, string narrative)
+        public Debt(int id, string owesTo, decimal amount, DateTime date, string narrative)
         {
             this.AccountId = id;
             this.OwesTo = owesTo;
