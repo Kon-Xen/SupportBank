@@ -21,13 +21,23 @@ Menu menu = new Menu();
 Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 List<string> data = getData("Transactions2014.csv");
 
-menu.show();
-
 populateAccounts(data);
-
 calculation();
 
-printAll();
+menu.menuA();
+
+if(menu.choice == 1){
+    printAll();
+}
+
+if(menu.choice == 2){
+     Dictionary<string, Account>.KeyCollection keyColl = accounts.Keys;
+     foreach (var item in keyColl)
+     {
+        Console.WriteLine(item);
+     }
+    // menu.menuB( keyColl);
+}
 
 
 List<string> getData(string path)
@@ -144,7 +154,5 @@ void printAll()
         Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
         Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
         Console.WriteLine("----------");
-
-
     }
 }
