@@ -31,7 +31,7 @@ namespace Bank
             }
         }
 
-        public void menuB(Dictionary<string, Account>.KeyCollection names)
+        public void menuB(int numberOfNames)
         {
             bool done = false;
             int count = 0;
@@ -41,16 +41,10 @@ namespace Bank
                 try
                 {
                     Console.WriteLine("choose one the accounts");
-
-                    foreach (var name in names)
-                    {
-                        count++;
-                        Console.WriteLine(count + " " + name + ", ");
-                    }
-
+                   
                     name = int.Parse(Console.ReadLine());
 
-                    done = (name <= names.Count) ? true : false;
+                    done = (name <= numberOfNames) ? true : false;
                 }
 
                 catch (System.FormatException)
