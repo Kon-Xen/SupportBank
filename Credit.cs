@@ -1,11 +1,11 @@
 namespace Bank
 {
-    class Debt
+    class Credit
     {
         private int accountId; 
         public int AccountId {get;set;} 
-        private string to; //other persons id
-        public string To {get;set;}
+        private string from; //other persons id
+        public string From {get;set;}
         private decimal amount;
         public decimal Amount {get;set;} 
         private DateTime date;
@@ -13,10 +13,10 @@ namespace Bank
         private string? narrative;
         public string? Narrative{get; set;}
 
-        public Debt(int id, string to, decimal amount, DateTime date, string narrative)
+        public Credit(int id, string from, decimal amount, DateTime date, string narrative)
         {
             this.AccountId = id;
-            this.To = to;
+            this.From = from;
             this.Amount = amount;
             this.Date = date;
             this.Narrative = narrative;

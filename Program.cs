@@ -19,7 +19,9 @@ Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 List<string> data = getData("Transactions2014.csv");
 
 populateAccounts(data);
-calcCredit();
+
+ calculation();
+
 printAll();
 
 
@@ -80,11 +82,24 @@ void populateAccounts(List<string> data)
             accounts[row[1]].DebtList.Add(debt);
 
         }
+
+        if (accounts.ContainsKey(row[2]))
+        {
+            dynamic credit = new Credit(
+                  accounts[row[2]].Id,
+                  row[1],
+                  Convert.ToDecimal(row[4]),
+                  DateTime.Parse(row[0]),
+                  row[3]
+          );
+
+            accounts[row[2]].CreditList.Add(credit);
+        }
     }
 }
 
 
-void calcCredit()
+void calculation()
 {
     foreach (var account in accounts)
     {
@@ -93,39 +108,69 @@ void calcCredit()
         {
             account.Value.TotalDebit += debt.Amount;
         }
-    }
-}
 
-void printAll()
-{
-    foreach (var account in accounts)
-    {
-        Console.WriteLine("account : " + account.Value.Id);
-        Console.WriteLine(account.Value.Name);
-
-        foreach (var debt in account.Value.DebtList)
+        foreach (var credit in account.Value.CreditList)
         {
-            Console.WriteLine(debt.AccountId + " owes to: " + debt.OwesTo + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
+            account.Value.TotalCredit += credit.Amount;
         }
-
-        Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
-        Console.WriteLine("----------");
-
     }
+
 }
 
 
+    void printAll()
+    {
+        foreach (var account in accounts)
+        {
+            Console.WriteLine("account : " + account.Value.Id);
+            Console.WriteLine(account.Value.Name);
 
-// take each account and compare it to all of the other accounts...
+            foreach (var debt in account.Value.DebtList)
+            {
+                Console.WriteLine(debt.AccountId + " owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
+            }
 
-// foreach (var pair in accounts)
-// {
-//     Account accountToCompare = pair.Value;
+            foreach (var credit in account.Value.CreditList)
+            {
+                Console.WriteLine(credit.AccountId + " owed by : " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
+            }
 
-//     // go through the debt list. and for each entry look for other entries???
+
+            Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
+                     Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
+            Console.WriteLine("----------");
 
 
-//     Console.WriteLine(" Total debt = " + total);
-//     Console.WriteLine("----------");
+        }
+    }
 
-// }
+
+
+    // take each account and compare it to all of the other accounts...
+
+    // foreach (var pair in accounts)
+    // {
+    //     Account account = pair.Value;
+    //     string name = pair.Key;
+
+    //     // go through the debt list. and for each entry look for other entries???
+    //     foreach (var otherPair in accounts)
+    //     {
+    //         if (name != otherPair.Key)
+    //         {
+    //             foreach (var dept in otherPair.Value.DebtList)
+    //             {
+    //                 if (dept.to == name)
+    //                 {
+    //                     account.credit.Add()
+
+
+    //             }
+    //             }
+    //         }
+    //         dept.OwesTo
+
+
+    // }
+
+    // }

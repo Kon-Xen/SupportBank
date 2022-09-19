@@ -19,6 +19,13 @@ namespace Bank
             get; 
             set;
         } = new List<Debt>(); //list of debt objects
+        
+        private List<Credit> creditList = new List<Credit>();
+        public List<Credit> CreditList
+        {
+            get;
+            set;
+        } = new List<Credit>();
 
         public Account( int id, string name, Debt debt ) {
             this.Id = id;
