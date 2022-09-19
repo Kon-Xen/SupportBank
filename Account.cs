@@ -7,8 +7,14 @@ namespace Bank
         private string? name;
         public string Name{ get; set; }
 
-        private List<Debt> owesTo = new List<Debt>();
-        public List<Debt> OwesTo
+        private decimal totalDebit;
+        public decimal TotalDebit{get;set;}
+
+        private decimal totalCredit;
+        public decimal TotalCredit{get;set;}
+
+        private List<Debt> debtList = new List<Debt>();
+        public List<Debt> DebtList
         {
             get; 
             set;
@@ -17,7 +23,7 @@ namespace Bank
         public Account( int id, string name, Debt debt ) {
             this.Id = id;
             this.Name = name;
-            this.OwesTo.Add(debt);
+            this.DebtList.Add(debt);
         }
     }
 }
