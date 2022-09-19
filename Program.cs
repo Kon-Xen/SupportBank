@@ -132,7 +132,7 @@ void calculation()
 
             foreach (var credit in account.Value.CreditList)
             {
-                Console.WriteLine(credit.AccountId + " owed by : " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
+                Console.WriteLine(credit.AccountId + " owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
             }
 
 
