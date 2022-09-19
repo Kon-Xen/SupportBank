@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.Design;
+using System.Collections.Generic;
 /* 
  * TODO:
  * We open the file
@@ -15,12 +16,16 @@
 
 using Bank;
 
+Menu menu = new Menu();
+
 Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 List<string> data = getData("Transactions2014.csv");
 
+menu.show();
+
 populateAccounts(data);
 
- calculation();
+calculation();
 
 printAll();
 
@@ -118,59 +123,28 @@ void calculation()
 }
 
 
-    void printAll()
+void printAll()
+{
+    foreach (var account in accounts)
     {
-        foreach (var account in accounts)
+        Console.WriteLine("account : " + account.Value.Id);
+        Console.WriteLine(account.Value.Name);
+
+        foreach (var debt in account.Value.DebtList)
         {
-            Console.WriteLine("account : " + account.Value.Id);
-            Console.WriteLine(account.Value.Name);
-
-            foreach (var debt in account.Value.DebtList)
-            {
-                Console.WriteLine(debt.AccountId + " owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
-            }
-
-            foreach (var credit in account.Value.CreditList)
-            {
-                Console.WriteLine(credit.AccountId + " owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
-            }
-
-
-            Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
-                     Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
-            Console.WriteLine("----------");
-
-
+            Console.WriteLine(debt.AccountId + " owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
         }
+
+        foreach (var credit in account.Value.CreditList)
+        {
+            Console.WriteLine(credit.AccountId + " owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
+        }
+
+
+        Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
+        Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
+        Console.WriteLine("----------");
+
+
     }
-
-
-
-    // take each account and compare it to all of the other accounts...
-
-    // foreach (var pair in accounts)
-    // {
-    //     Account account = pair.Value;
-    //     string name = pair.Key;
-
-    //     // go through the debt list. and for each entry look for other entries???
-    //     foreach (var otherPair in accounts)
-    //     {
-    //         if (name != otherPair.Key)
-    //         {
-    //             foreach (var dept in otherPair.Value.DebtList)
-    //             {
-    //                 if (dept.to == name)
-    //                 {
-    //                     account.credit.Add()
-
-
-    //             }
-    //             }
-    //         }
-    //         dept.OwesTo
-
-
-    // }
-
-    // }
+}
