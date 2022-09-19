@@ -42,7 +42,7 @@ if (menu.choice == 2)
 
     menu.menuB(keyColl.Count);
 
-    printOne( menu.name );
+    printOne(menu.name);
 }
 
 
@@ -168,27 +168,25 @@ void printOne(int name)
 
     foreach (var account in accounts)
     {
-        if (account.Value.Id == name){
+        if (account.Value.Id == name)
+        {
             Console.WriteLine("account : " + account.Value.Id);
-    Console.WriteLine(account.Value.Name);
+            Console.WriteLine(account.Value.Name);
 
-    foreach (var debt in account.Value.DebtList)
-    {
-        Console.WriteLine(debt.AccountId + " owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
-    }
+            foreach (var debt in account.Value.DebtList)
+            {
+                Console.WriteLine(" owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
+            }
 
-    foreach (var credit in account.Value.CreditList)
-    {
-        Console.WriteLine(credit.AccountId + " owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
-    }
+            foreach (var credit in account.Value.CreditList)
+            {
+                Console.WriteLine(" owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
+            }
 
-
-    Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
-    Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
-    Console.WriteLine("----------");
-
+            Console.WriteLine("----------");
+            Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
+            Console.WriteLine("----------");
+            Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
         }
     }
-
-    
 }
