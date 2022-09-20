@@ -7,34 +7,17 @@ Menu menu = new Menu();
 
 // Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 List<string> names = new List<string>();
-List<Account> accounts = new List<Account>();
+
+Dictionary<string, Account> accounts = new Dictionary<string, Account>();
+// List<Account> accounts = new List<Account>();
 List<Transaction> transactions = new List<Transaction>();
 List<string> data = getData("Transactions2014.csv");
 
 populateAccounts(data);
-calculation();
+populateTransactions(data);
 
-menu.menuA();
-
-if (menu.choice == 1)
-{
-    printAll();
-}
-
-if (menu.choice == 2)
-{
-    int index = 1;
-   
-    foreach (var account in accounts)
-    {
-        Console.WriteLine(index++ + ". " + account.Name);
-    }
-
-    menu.menuB(keyColl.Count);
-
-    printOne(menu.name);
-}
-
+printAllTransactions();
+printOne(8);
 
 List<string> getData(string path)
 {
@@ -66,137 +49,81 @@ void populateAccounts(List<string> data)
             idCounter++;
             names.Add((row[1]));
 
-            dynamic instance = new Account(
-               idCounter,
-               row[1]
-           );
-            
-            accounts.Add(instance);           
+            addAccount(idCounter, row[1]);
         }
     }
 }
 
- void populateTransactions(List<string> data)
-{   
-    int idCounter = 0;
-    for (int i = 1; i < data.Count; i++){
+void populateTransactions(List<string> data)
+{
+    int fromId;
+    int toId;
 
-    string[] row = data[i].Split(',');
-
-    foreach (var account in accounts)
+    for (int i = 1; i < data.Count; i++)
     {
-        if (account.Name == (row[1]) ){
-                dynamic transaction = new Transaction(
-                       i,
-                       account.Id,
-                       row[2],// how do I get this guy?
-                       Convert.ToDecimal(row[4]),
-                       DateTime.Parse(row[0]),
-                       row[3]
-               );
-        }
+        string[] row = data[i].Split(',');
+
+        fromId = accounts[row[1]].Id;
+        toId = accounts[row[2]].Id;
+
+        addTransaction(i, fromId, toId, Convert.ToDecimal(row[4]), DateTime.Parse(row[0]), row[3]);
+
     }
 
-//replace each name with the correct ID from accounts.
+}
 
-        if(accounts.Contains(row[1]) )
-    {
-            dynamic transaction = new Transaction(
-                   accounts[row[1]].Id,
-                   row[2],
-                   Convert.ToDecimal(row[4]),
-                   DateTime.Parse(row[0]),
-                   row[3]
-           );
-
-            accounts[row[1]].DebtList.Add(debt);
-
-        }
-
-        if (accounts.ContainsKey(row[2]))
-        {
-            dynamic credit = new Credit(
-                  accounts[row[2]].Id,
-                  row[1],
-                  Convert.ToDecimal(row[4]),
-                  DateTime.Parse(row[0]),
-                  row[3]
+void addAccount(int id, string name)
+{
+    dynamic instance = new Account(
+              id,
+              name
           );
 
-            accounts[row[2]].CreditList.Add(credit);
-        }
+    accounts.Add(name, instance);
+}
 
-    }
-
-     }
-
-void calculation()
+void addTransaction(int id, int from, int to, decimal ammount, DateTime date, string narrative)
 {
-    foreach (var account in accounts)
-    {
-
-        foreach (var debt in account.Value.DebtList)
-        {
-            account.Value.TotalDebit += debt.Amount;
-        }
-
-        foreach (var credit in account.Value.CreditList)
-        {
-            account.Value.TotalCredit += credit.Amount;
-        }
-    }
-
+    dynamic transaction = new Transaction(
+                                       id,
+                                       from,
+                                       to,
+                                       ammount,
+                                       date,
+                                       narrative
+                               );
+    transactions.Add(transaction);
 }
 
 
-void printAll()
+void printAllTransactions()
 {
-    foreach (var account in accounts)
+    foreach (var transaction in transactions)
     {
-        Console.WriteLine("account : " + account.Value.Id);
-        Console.WriteLine(account.Value.Name);
-
-        foreach (var debt in account.Value.DebtList)
-        {
-            Console.WriteLine(debt.AccountId + " owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
-        }
-
-        foreach (var credit in account.Value.CreditList)
-        {
-            Console.WriteLine(credit.AccountId + " owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
-        }
-
-
-        Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
-        Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
-        Console.WriteLine("----------");
+        Console.WriteLine(transaction.Id + "/ " + transaction.From + " owes to: " + transaction.To + " " + transaction.Amount + "£ for " + transaction.Narrative + " on the: " + transaction.Date);
     }
 }
 
-void printOne(int name)
+void printOne(int id)
 {
+    decimal debit = 0;
+
+    Console.WriteLine("----------");
 
     foreach (var account in accounts)
     {
-        if (account.Value.Id == name)
+        if (account.Value.Id == id)
         {
-            Console.WriteLine("account : " + account.Value.Id);
-            Console.WriteLine(account.Value.Name);
-
-            foreach (var debt in account.Value.DebtList)
+            foreach (var transaction in transactions)
             {
-                Console.WriteLine(" owes to: " + debt.To + " " + debt.Amount + "£ for " + debt.Narrative + " on the: " + debt.Date);
-            }
-
-            foreach (var credit in account.Value.CreditList)
-            {
-                Console.WriteLine(" owed by: " + credit.From + " " + credit.Amount + "£ for " + credit.Narrative + " on the: " + credit.Date);
-            }
+                if (transaction.From == id){
+                    Console.WriteLine(transaction.Id + "/ " + account.Value.Name + " owes to: " + transaction.To + " " + transaction.Amount + "£ for " + transaction.Narrative + " on the: " + transaction.Date);
+                    debit += transaction.Amount;
+                }    
+            }           
 
             Console.WriteLine("----------");
-            Console.WriteLine(" Total debt = £" + account.Value.TotalDebit);
-            Console.WriteLine("----------");
-            Console.WriteLine(" Total credit = £" + account.Value.TotalCredit);
+            Console.WriteLine(" Total debt = £" + debit);           
         }
     }
 }
